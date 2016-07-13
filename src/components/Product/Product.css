@@ -1,0 +1,33 @@
+.product-wrapper {
+    box-sizing: border-box;
+    width: 250px;
+    min-height: 165px;
+    border: 1px solid #cccccc;
+    margin: 20px 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.product-wrapper h2, h3 {
+    text-align: center;
+}
+
+.product-wrapper h3 {
+    margin: 5px 0;
+}
+
+.product-wrapper button {
+    background-color: #0086b3;
+    border: none;
+    width: 105px;
+    height: 30px;
+    color: white;
+    cursor: pointer;
+    margin: 20px auto 0 auto;
+}
+
+.product-wrapper button:hover {
+    background-color: #00bcff;
+}

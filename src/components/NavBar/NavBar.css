@@ -1,0 +1,29 @@
+nav {
+    height: 70px;
+    width: 100%;
+    background-color: #0086b3;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+nav h2 {
+    margin-left: 15px;
+    color: white;
+    font-weight: normal;
+}
+
+.nav-link {
+    margin-right: 15px;
+}
+
+.nav-link a {
+    color: white;
+    font-size: 1.3em;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.nav-link a:hover {
+    text-decoration: underline;
+}
