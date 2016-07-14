@@ -17,8 +17,8 @@ document.addEventListener( "DOMContentLoaded", () => {
 			<Provider store={ store }>
 				<Router history={ browserHistory }>
 					<Route path="/" component={ App }>
-						<Route path="/login" component={ Login }/>
-						<Route path="/shop" component={ Shop }/>
+						<Route path="login" component={ Login }/>
+						<Route path="shop" component={ Shop }/>
 					</Route>
 				</Router>
 			</Provider>
