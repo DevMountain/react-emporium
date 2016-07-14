@@ -185,12 +185,13 @@ ReactDOM.render(
 ```
 
 **Component One**: App
+Inside of `/src/components/App` create a file: `App.js`.
 Our `App` component will be extremely simple, serving as a simple wrapper for our application. For now it should just return a `<div>` containing the component' children.
 
 Don't forget to import this component to `index.js` so your root route can be handled!
 
 **Component Two**: NavBar
-
+Inside of `/src/components/NavBar` create a file: `NavBar.js`.
 * Create `NavBar.js` inside of the `NavBar/` folder and import the following:
     * `React` from `react` - As always
     * `connect` from react-redux - To connect our component to our application state.
@@ -213,7 +214,7 @@ Don't forget to import this component to `index.js` so your root route can be ha
 </div>
 ```
 
-or 
+or
 
 ``` jsx
 <div className="nav-link">
@@ -259,7 +260,7 @@ export default connect( state => ( {
 Import the NavBar component into `App.js` and include it inside of the `render` method above  `{ this.props.children }`.
 
 **Component Three:** Login
-
+Inside of `/src/components/Login` create a file: `Login.js`.
 Our login component will contain a simple form that takes in a user's name and email and dispatches that information to the store.
 
 You will need to import:
