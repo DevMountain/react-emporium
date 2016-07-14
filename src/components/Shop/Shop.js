@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getItems } from "../../services/itemService";
+import { getProducts } from "../../services/productService";
 
 import "./Shop.css";
 
@@ -14,7 +14,7 @@ class Shop extends React.Component {
 	}
 
 	render() {
-		const products = getItems().map( product => (
+		const products = getProducts().map( product => (
 			<Product
 				addToCart={ this.addToCart.bind( this, product ) }
 				key={ product.name }
