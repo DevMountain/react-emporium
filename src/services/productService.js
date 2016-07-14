@@ -1,4 +1,8 @@
-const items = [
+export function getProducts() {
+	return products.slice();
+}
+
+const products = [
 	{
 		"description": "read the name dummy",
 		"featured": true,

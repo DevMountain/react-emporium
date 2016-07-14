@@ -363,3 +363,89 @@ class Login extends React.Component {
 
 export default connect( state => ( { user: state.user } ) )( Login );
 ```
+
+Import this component into `index.js` and create a sub-route of `"login"` inside of the root route.
+
+**Component Four and Five:** Shop and Product
+We'll start with product, this component will simply take in props from `Shop` and display them. All it needs is a `render` method that returns the following JSX:
+
+``` jsx
+<div className="product-wrapper">
+		<h2>{ this.props.name }</h2>
+		<h3>Price: ${ this.props.price }</h3>
+		<button onClick={ this.props.addToCart }>Add to Cart</button>
+</div>
+```
+Note that we will be passing an `addToCart` as a prop.
+
+Import the component into `Shop` where we will make use of it.
+
+___
+
+The Shop component will need to import 
+
+* `connect` from `react-redux`
+* `getProducts` from the `productService` provided with the repo.
+* `addProduct` from `cartDuck`.
+
+Create an `addToCart` method on the class that takes in a product parameter and dispatches the action created by `addProduct`.
+
+At the top of the render method we will need to create an array of `Product` components from the array provided by `productService`. Be sure to pass the necessary props to each component.
+
+The render method should return the following simple JSX:
+``` jsx
+<div className="shop-wrapper">
+	{ products }
+</div>
+```
+
+Once that is complete, connect `Shop` to our application state's `cart`. `Shop.js` should look something like this:
+
+``` jsx
+import React from "react";
+import { connect } from "react-redux";
+import { getItems } from "../../services/itemService";
+
+import "./Shop.css";
+
+import { addProduct } from "../../ducks/cartDuck";
+
+import Product from "../Product/Product";
+
+class Shop extends React.Component {
+	addToCart( product ) {
+		this.props.dispatch( addProduct( product ) )
+	}
+
+	render() {
+		const products = getItems().map( product => (
+			<Product
+				addToCart={ this.addToCart.bind( this, product ) }
+				key={ product.name }
+				name={ product.name }
+				price={ product.price }
+			/>
+		) );
+
+		return (
+			<div className="shop-wrapper">
+				{ products }
+			</div>
+		);
+	}
+}
+
+export default connect( state => ( { cart: state.cart } ) )( Shop );
+```
+
+Lastly, import `Shop` into `index.js` and assign it to a sub-route of `"shop"`.
+
+___
+
+You should now be able to add items to cart and have that information be provided to the NavBar via Redux!
+
+### Black Diamonds:
+
+* Add a new cart route where users can view and edit their cart.
+* We set up our Redux stores with several actions that we haven't yet implemented, try to implement `logout`, `removeProduct`, and `checkout` functionality.
+* **Double Black Diamond:** Try to implement [Immutable.js](https://facebook.github.io/immutable-js/). Immutable is nearly a given in the Redux community, so it's great to know!
