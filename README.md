@@ -185,11 +185,16 @@ ReactDOM.render(
 ```
 
 **Component One**: App
+
+Inside of `/src/components/App` create a file: `App.js`.
+
 Our `App` component will be extremely simple, serving as a simple wrapper for our application. For now it should just return a `<div>` containing the component' children.
 
 Don't forget to import this component to `index.js` so your root route can be handled!
 
 **Component Two**: NavBar
+
+Inside of `/src/components/NavBar` create a file: `NavBar.js`.
 
 * Create `NavBar.js` inside of the `NavBar/` folder and import the following:
     * `React` from `react` - As always
@@ -213,7 +218,7 @@ Don't forget to import this component to `index.js` so your root route can be ha
 </div>
 ```
 
-or 
+or
 
 ``` jsx
 <div className="nav-link">
@@ -260,6 +265,7 @@ Import the NavBar component into `App.js` and include it inside of the `render` 
 
 **Component Three:** Login
 
+Inside of `/src/components/Login` create a file: `Login.js`.
 Our login component will contain a simple form that takes in a user's name and email and dispatches that information to the store.
 
 You will need to import:
@@ -367,6 +373,12 @@ export default connect( state => ( { user: state.user } ) )( Login );
 Import this component into `index.js` and create a sub-route of `"login"` inside of the root route.
 
 **Component Four and Five:** Shop and Product
+
+Create two new files:
+Inside of `/src/components/Product` create a files: `Product.js`.
+Inside of `/src/components/Shop` create a files: `Shop.js`.
+
+
 We'll start with product, this component will simply take in props from `Shop` and display them. All it needs is a `render` method that returns the following JSX:
 
 ``` jsx
@@ -382,7 +394,7 @@ Import the component into `Shop` where we will make use of it.
 
 ___
 
-The Shop component will need to import 
+The Shop component will need to import
 
 * `connect` from `react-redux`
 * `getProducts` from the `productService` provided with the repo.
@@ -454,15 +466,15 @@ You should now be able to add items to cart and have that information be provide
 
 ### Contributions
 
-#### 
- 
+####
+
 If you see a problem or a typo, please fork, make the necessary changes, and create a pull request so we can review your changes and merge them into the master repo and branch.
 
 ## Copyright
 
 ### Copyright
 
-#### 
+####
 
 © DevMountain LLC, 2015. Unauthorized use and/or duplication of this material without express and written permission from DevMountain, LLC is strictly prohibited. Excerpts and links may be used, provided that full and clear credit is given to DevMountain with appropriate and specific direction to the original content.
 
