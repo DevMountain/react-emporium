@@ -1,7 +1,3 @@
-export function getItems() {
-	return items.slice();
-}
-
 const items = [
 	{
 		"description": "read the name dummy",
