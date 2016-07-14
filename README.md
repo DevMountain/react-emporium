@@ -185,13 +185,17 @@ ReactDOM.render(
 ```
 
 **Component One**: App
+
 Inside of `/src/components/App` create a file: `App.js`.
+
 Our `App` component will be extremely simple, serving as a simple wrapper for our application. For now it should just return a `<div>` containing the component' children.
 
 Don't forget to import this component to `index.js` so your root route can be handled!
 
 **Component Two**: NavBar
+
 Inside of `/src/components/NavBar` create a file: `NavBar.js`.
+
 * Create `NavBar.js` inside of the `NavBar/` folder and import the following:
     * `React` from `react` - As always
     * `connect` from react-redux - To connect our component to our application state.
@@ -260,6 +264,7 @@ export default connect( state => ( {
 Import the NavBar component into `App.js` and include it inside of the `render` method above  `{ this.props.children }`.
 
 **Component Three:** Login
+
 Inside of `/src/components/Login` create a file: `Login.js`.
 Our login component will contain a simple form that takes in a user's name and email and dispatches that information to the store.
 
@@ -298,4 +303,179 @@ The login class will need the following:
 
 Be sure to plug in `value`'s, `onChange`'s, and `onClick`'s where necessary.
 
-Lastly, connect the component to `state.user` and export the component.
+Lastly, connect the component to `state.user` and export the component. Your code should look something like this:
+
+``` jsx
+import React from "react";
+import { connect } from "react-redux";
+import { browserHistory } from "react-router";
+
+import "./Login.css";
+
+import { login } from "../../ducks/userDuck";
+
+class Login extends React.Component {
+	constructor( props ) {
+		super( props );
+
+		this.state = {
+			username: ""
+			, email: ""
+		};
+	}
+
+	handleChange( field, event ) {
+		this.setState( { [ field ]: event.target.value } );
+	}
+
+	login( event ) {
+		event.preventDefault();
+
+		this.props.dispatch( login( {
+			  username: this.state.username
+			, email: this.state.email
+		} ) );
+
+		browserHistory.push( "/shop" );
+	}
+
+	render() {
+		return (
+			<div>
+				<form className="login-form">
+					<input
+						onChange={ this.handleChange.bind( this, "username" ) }
+						placeholder="Username"
+						type="text"
+						value={ this.state.username }
+					/>
+					<input
+						onChange={ this.handleChange.bind( this, "email" ) }
+						placeholder="Email"
+						type="text"
+						value={ this.state.email }
+					/>
+					<button
+						onClick={ this.login.bind( this ) }
+						type="submit"
+					>
+						Login
+					</button>
+				</form>
+			</div>
+		);
+	}
+}
+
+export default connect( state => ( { user: state.user } ) )( Login );
+```
+
+Import this component into `index.js` and create a sub-route of `"login"` inside of the root route.
+
+**Component Four and Five:** Shop and Product
+
+Create two new files:
+Inside of `/src/components/Product` create a files: `Product.js`.
+Inside of `/src/components/Shop` create a files: `Shop.js`.
+
+
+We'll start with product, this component will simply take in props from `Shop` and display them. All it needs is a `render` method that returns the following JSX:
+
+``` jsx
+<div className="product-wrapper">
+		<h2>{ this.props.name }</h2>
+		<h3>Price: ${ this.props.price }</h3>
+		<button onClick={ this.props.addToCart }>Add to Cart</button>
+</div>
+```
+Note that we will be passing an `addToCart` as a prop.
+
+Import the component into `Shop` where we will make use of it.
+
+___
+
+The Shop component will need to import
+
+* `connect` from `react-redux`
+* `getProducts` from the `productService` provided with the repo.
+* `addProduct` from `cartDuck`.
+
+Create an `addToCart` method on the class that takes in a product parameter and dispatches the action created by `addProduct`.
+
+At the top of the render method we will need to create an array of `Product` components from the array provided by `productService`. Be sure to pass the necessary props to each component.
+
+The render method should return the following simple JSX:
+``` jsx
+<div className="shop-wrapper">
+	{ products }
+</div>
+```
+
+Once that is complete, connect `Shop` to our application state's `cart`. `Shop.js` should look something like this:
+
+``` jsx
+import React from "react";
+import { connect } from "react-redux";
+import { getItems } from "../../services/itemService";
+
+import "./Shop.css";
+
+import { addProduct } from "../../ducks/cartDuck";
+
+import Product from "../Product/Product";
+
+class Shop extends React.Component {
+	addToCart( product ) {
+		this.props.dispatch( addProduct( product ) )
+	}
+
+	render() {
+		const products = getItems().map( product => (
+			<Product
+				addToCart={ this.addToCart.bind( this, product ) }
+				key={ product.name }
+				name={ product.name }
+				price={ product.price }
+			/>
+		) );
+
+		return (
+			<div className="shop-wrapper">
+				{ products }
+			</div>
+		);
+	}
+}
+
+export default connect( state => ( { cart: state.cart } ) )( Shop );
+```
+
+Lastly, import `Shop` into `index.js` and assign it to a sub-route of `"shop"`.
+
+___
+
+You should now be able to add items to cart and have that information be provided to the NavBar via Redux!
+
+### Black Diamonds:
+
+* Add a new cart route where users can view and edit their cart.
+* We set up our Redux stores with several actions that we haven't yet implemented, try to implement `logout`, `removeProduct`, and `checkout` functionality.
+* **Double Black Diamond:** Try to implement [Immutable.js](https://facebook.github.io/immutable-js/). Immutable is nearly a given in the Redux community, so it's great to know!
+
+## Contributions
+
+### Contributions
+
+####
+
+If you see a problem or a typo, please fork, make the necessary changes, and create a pull request so we can review your changes and merge them into the master repo and branch.
+
+## Copyright
+
+### Copyright
+
+####
+
+© DevMountain LLC, 2015. Unauthorized use and/or duplication of this material without express and written permission from DevMountain, LLC is strictly prohibited. Excerpts and links may be used, provided that full and clear credit is given to DevMountain with appropriate and specific direction to the original content.
+
+<img src="https://devmounta.in/img/logowhiteblue.png" width="250">
