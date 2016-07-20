@@ -73,7 +73,7 @@ export function login( user ) {
 }
 
 export function logout() {
-	return { type: LOGIN };
+	return { type: LOGOUT };
 }
 
 ```
