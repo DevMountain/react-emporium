@@ -416,7 +416,7 @@ Once that is complete, connect `Shop` to our application state's `cart`. `Shop.j
 ``` jsx
 import React from "react";
 import { connect } from "react-redux";
-import { getItems } from "../../services/itemService";
+import { getProducts } from "../../services/productService";
 
 import "./Shop.css";
 
@@ -430,7 +430,7 @@ class Shop extends React.Component {
 	}
 
 	render() {
-		const products = getItems().map( product => (
+		const products = getProducts().map( product => (
 			<Product
 				addToCart={ this.addToCart.bind( this, product ) }
 				key={ product.name }
@@ -454,7 +454,7 @@ Lastly, import `Shop` into `index.js` and assign it to a sub-route of `"shop"`.
 
 ___
 
-You should now be able to add items to cart and have that information be provided to the NavBar via Redux!
+You should now be able to add products to cart and have that information be provided to the NavBar via Redux!
 
 ### Black Diamonds:
 
